@@ -1,1 +1,1 @@
-# Promoter & Enhancer Classifier
+# Promoter and Enhancer Classifier
