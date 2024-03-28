@@ -53,7 +53,6 @@
   <li><a href="#training">Training</a></li>
   <li><a href="#testing">Testing</a></li>
   <li><a href="#resut">Results</a></li>
-  <li><a href="#acknowledgments">Acknowledgments</a></li>
 </ol>
 
 
