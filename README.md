@@ -113,10 +113,27 @@ In this section you will learn how to process both.
 
 <!-- USAGE EXAMPLES -->
 ### Embedding Tokenizer
-1. Extract promoter sequence from [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/) founded in the `.bed` file that can be downloaded [here](https://epd.expasy.org/epd/get_promoters.php). 
+1. Download the following files: 
+- genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
+- bed file: [human_epdnew_xxxxxx.bed](https://epd.expasy.org/epd/get_promoters.php) 
+2. Place where you prefer, our suggest is to use `Data` folder to store used for the model 
+3. From `cd Data_Preparation 
+` run extract_promoters.py 
+```sh
+cd Data_Preparation 
+$ python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters length> -o <output_path> ]
+
+where: 
+-o is the desired p
+example: 
+python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_xxxxxx.bed -l 100 -o Desktop/folder
+```
+> Since this script is used to generate dataset with sequence of variabile length for the Transfomer, by omitting -l parameter will cut promoter sequence of length: 5,10,20,100,200,1000,2000.<br>
+In your case this paramter is **mandatory**
 
 
-In `Data Preparation` folder run `create_dataset.py` with the following command 
+In `cd Data_Preparation 
+` folder run `create_dataset.py` with the following command 
 ```sh
 $ python create_dataset.py -e <embedding_folder_path> -d <dataset_folder-path> [ -z <embedding_zip_path>]  
 
