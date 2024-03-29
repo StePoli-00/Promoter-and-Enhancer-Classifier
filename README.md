@@ -124,7 +124,7 @@ cd Data_Preparation
 $ python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters length> -o <output_path> ]
 
 where: 
--o is the desired p
+-o is the desired position of the output file
 example: 
 python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_xxxxxx.bed -l 100 -o Desktop/folder
 ```
@@ -143,6 +143,7 @@ Where
 ```
 > the zip folder must have the same name of embedding_folder_path
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### One Hot Encoding
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
