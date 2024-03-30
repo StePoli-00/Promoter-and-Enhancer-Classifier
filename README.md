@@ -172,6 +172,17 @@ Where
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Results 
+Each training produce an output folder that contains checkpoint and "events.out" files. 
+1. Into the terminal run: 
+   ```sh
+   $ pip3 install tensorboard
+   ```
+2. After the installation, into the terminal, cd into the training's output folder.
+3. Now, run command:
+   ```sh
+   $ tensorboard --logdir <name_of_version_folder> 
+   ```
+4. This command show graphics about training, test and valiadation accuracy and loss.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
