@@ -158,8 +158,7 @@ python split_dataset.py -e Project/Embedding -d Dataset
 > [!NOTE]
 - if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
 - -z: can be used only if the embedding zip folder is only one.
-```
-> the zip folder must have the same name of embedding_folder_path
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### One Hot Encoding
