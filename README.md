@@ -149,15 +149,15 @@ $ python -s data.csv -d Project_Folder/
 ```
 This file will create `Embedding` folder in the destination path provided  which contains `embeddings` and `labels` of our data converted from sequence to embeddings using Tokenizer of DNABert. 
 
-
-In `cd Data_Preparation 
-` folder run `create_dataset.py` with the following command 
+6. run **split_dataset.py** to  create Dataset folder, run the following command: 
 ```sh
-$ python create_dataset.py -e <embedding_folder_path> -d <dataset_folder-path> [ -z <embedding_zip_path>]  
-
-Where 
--z: can be used only if the embedding zip folder is only one.
-
+$ python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ -z <embedding_zip_path>]  
+example:
+python split_dataset.py -e Project/Embedding -d Dataset   
+```
+> [!NOTE]
+- if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
+- -z: can be used only if the embedding zip folder is only one.
 ```
 > the zip folder must have the same name of embedding_folder_path
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
