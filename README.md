@@ -96,29 +96,10 @@ Input Data are:
 - One Hot Encoding: simple encoding of DNA basis: A = {1,0,0,0}, T = {0,1,0,0}, C = {0,0,1,0} e G = {0,0,0,1}
 
 Depending on which model you want to test you must process data in two distinguish manner.
-In this section you will learn how to process both.
-
-### Enhancer Preprocessing
-
-1. Download .BED file for enhancer [enhancer_bed.txt](https://bio.liclab.net/ENdb/file/download/ENdb_enhancer.txt)
-2. Download .FASTA file genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
-
- 
-After the conversion from hg19 to hg38 using https://genome.ucsc.edu/cgi-bin/hgLiftOver, we obtain a .BED file that is a list of all enhancers converted into hg38 format.
-This file contains enhancers under the format "chr_name:<start_position> - <end_position>".
-
-1. Into terminal run: 
-```sh
-$ pip3 install biopython
-```
-
-The 'enhancer_preprocessing' script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene. 
-Moreover, the script open GRCh38.FASTA file and with FastaElem class (name, sequence) generate a list of FastaElem. 
-With Gene list and FastaElem list, using BioPython library, the script for each Gene into FastaElem (using the specific start,end position), takes the relative sequence of nucleotides and save it on enhancer.txt output file.
-The enhancer.txt file, at the end, contains all the enhancer with the lenght specify in the initial .BED file in hg38 version. 
-
-<!-- USAGE EXAMPLES -->
-### Common Steps
+In this section you will learn how to process both. 
+## Common Step for Tokenizer & OHE
+As first thing to do we must extract our data: promoters and enhancer 
+### Promoter Preprocessing
 1. Download the following files: 
 - genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
 - bed file: [human_epdnew_xxxxxx.bed](https://epd.expasy.org/epd/get_promoters.php) 
@@ -136,6 +117,27 @@ python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_xxxxxx.bed -
 ```
 > [!NOTE] Since this script is used to generate dataset with sequence of variabile length for the Transfomer, by omitting -l parameter will cut promoter sequence of length: 5,10,20,100,200,1000,2000.<br>
 In your case this parameter is **mandatory**
+### Enhancer Preprocessing
+
+1. Download .BED file for enhancer [enhancer_bed.txt](https://bio.liclab.net/ENdb/file/download/ENdb_enhancer.txt)
+2. Download .FASTA file genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
+
+ 
+After the conversion from hg19 to hg38 using https://genome.ucsc.edu/cgi-bin/hgLiftOver, we obtain a .BED file that is a list of all enhancers converted into hg38 format.
+This file contains enhancers under the format "chr_name:<start_position> - <end_position>".
+
+3. Into terminal run: 
+```sh
+$ pip3 install biopython
+```
+
+The 'enhancer_preprocessing' script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene. 
+Moreover, the script open GRCh38.FASTA file and with FastaElem class (name, sequence) generate a list of FastaElem. 
+With Gene list and FastaElem list, using BioPython library, the script for each Gene into FastaElem (using the specific start,end position), takes the relative sequence of nucleotides and save it on enhancer.txt output file.
+The enhancer.txt file, at the end, contains all the enhancer with the lenght specify in the initial .BED file in hg38 version. 
+
+
+
 
 4. Create csv dataset which contains promoter and enhancer sequence. In the previous folder run **create_csv_dataset.py**
 ```sh
@@ -146,7 +148,7 @@ python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv
 ```
 ### Embedding Tokenizer
 1. Fed csv file into **create_embedding.py**
-> [!WARNING] the following file require to be execute with GPU
+>[!WARNING] The following file require to be execute with GPU
 ```sh
 $ python -s <dataset.csv> -d <destination>
 
@@ -161,14 +163,25 @@ $ python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ 
 example:
 python split_dataset.py -e Project/Embedding -d Dataset   
 ```
-> [!NOTE]
+>[!NOTE]
 - if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
 - -z: can be used only if the embedding zip folder is only one.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### One Hot Encoding
-Once you follow 
+After the common steps run this command to generate OHE Dataset
+```sh
+$ python create_datasetOHE.py -s <source_path> -d <destionation_path> -l <sequence_length>
+
+where:
+-s: is the csv file obtained at the end of common steps
+-d: destionation of Dataset folder
+-l: length of the sequence
+
+example: python create_datasetOHE.py -s ..\Data\dataset100.csv -d . -l 100
+```
+This script will create dataset folder named `Dataset_x` where x is the length passed by -l option.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
