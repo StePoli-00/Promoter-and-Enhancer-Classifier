@@ -87,7 +87,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
    ```sh
    $ git clone https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier.git
    ```
-2. After cloning the repository run: 
+2. After cloning move into the folder: 
    ```sh
    $ cd Promoter-and-Enhancer-Classifier/
    ```
@@ -118,6 +118,7 @@ In this section you will learn how to process both.
 - bed file: [human_epdnew_xxxxxx.bed](https://epd.expasy.org/epd/get_promoters.php) 
 2. Place where you prefer, our suggest is to use `Data` folder to store used for the model 
 3. From ` Data_Preparation` run **extract_promoters.py** 
+
 ```sh
 cd Data_Preparation 
 $ python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters length> -o <output_path> ]
@@ -127,9 +128,9 @@ where:
 example: 
 python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_xxxxxx.bed -l 100 -o Desktop/folder
 ```
->
-**note**: Since this script is used to generate dataset with sequence of variabile length for the Transfomer, by omitting -l parameter will cut promoter sequence of length: 5,10,20,100,200,1000,2000.<br>
-In your case this paramter is **mandatory**
+>**note**: Since this script is used to generate dataset with sequence of variabile length for the Transfomer, by omitting -l parameter will cut promoter sequence of length: 5,10,20,100,200,1000,2000.<br>
+In your case this parameter is **mandatory**
+
 4. Create csv dataset which contains promoter and enhancer sequence. In the previous folder run **create_csv_dataset.py**
 ```sh
 $ python create_csv_dataset.py -p <promoter_file> -e <enhancer_file> -o <output_file> -l <promoter_length>
@@ -138,12 +139,13 @@ example:
 python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
 ```
 5. Fed csv file into **create_embedding.py**
-> **note**: the following file require to be execute  at least 1 GPU and 16G RAM 
+> [!WARNING]
+ **note**: the following file require to be execute with GPU
 ```sh
 $ python -s <dataset.csv> -d <destination>
 
 example:
-$python -s data.csv -d Project_Folder/
+$ python -s data.csv -d Project_Folder/
 ```
 This file will create `Embedding` folder in the destination path provided  which contains `embeddings` and `labels` of our data converted from sequence to embeddings using Tokenizer of DNABert. 
 
