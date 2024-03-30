@@ -128,13 +128,13 @@ if __name__=="__main__":
   
   promoter_path=parser.promoter
   enhancer_path=parser.enhancer
-  seq_length=parser.lenght
+  seq_length=parser.length
   csv_path=parser.output
 
   if promoter_path is None or enhancer_path is None or seq_length is None or csv_path is None:
     parser.print_help()
     parser.error("Parameters error")
- 
+  seq_length=int(seq_length)
   enhancer_list=load_enhancers(enhancer_path)
   promoter_list =load_promoters(promoter_path)
   enhancer_dataset=create_dataset(enhancer_list,0)
