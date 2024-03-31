@@ -131,25 +131,28 @@ Except for the Transfomer, all the other model take an input sequence of fixed l
 In your case this `-l` parameter is **mandatory**
 ####  Enhancer Preprocessing
 
-1. Download .BED file for enhancer [enhancer_bed.txt](https://bio.liclab.net/ENdb/file/download/ENdb_enhancer.txt)
-2. Download .FASTA file genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
 
- 
 After the conversion from hg19 to hg38 using https://genome.ucsc.edu/cgi-bin/hgLiftOver, we obtain a .BED file that is a list of all enhancers converted into hg38 format.
 This file contains enhancers under the format "chr_name:<start_position> - <end_position>".
 
-3. Into terminal run: 
+1. Into terminal run: 
 ```sh
 $ pip3 install biopython
 ```
 
-The **enhancer_preprocessing.py** script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene.<br>
+The **enhancer_preprocessing.py** takes different mandatories arguments from command line: 
+1) option "-b": path bed file (hg38) 
+2) option "-f": path fasta file (GRCh38.FASTA 3gb) 
+3) option "-e": name of output file (.txt) for the final sequences.
+
+
+Initially, the script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene.<br>
 Moreover, the script open `GRCh38.FASTA` file and with FastaElem class (name, sequence) generate a list of FastaElem. <br> 
 With Gene list and FastaElem list, using BioPython library, the script for each Gene into FastaElem (using the specific start,end position), takes the relative sequence of nucleotides and save it on `enhancer.txt` output file.
 The enhancer.txt file, at the end, contains all the enhancer with the lenght specify in the initial .BED file in hg38 version. 
 
 ```sh
-$ python enhancer_preprocessing.py 
+$ python enhancer_preprocessing.py -b <path_bed_file> -f <path_fasta_file> -e <output_name_enhancer_file>
 ```
 
 
