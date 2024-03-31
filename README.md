@@ -27,7 +27,7 @@
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier">
     <img src="images/dna.svg" alt="Logo" width="200" height="200">
   </a>
-  <p align="center">This Repository contains code for classify Promoteres and Enhancer</p>
+  <p align="center">This Repository contains all the information, <br>code of  Promoter and Enhancer Classifier project</p>
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier"><strong>Explore the docs »</strong></a>
     
   
@@ -57,6 +57,16 @@
 
 
 ## Abstract
+Decoding the linguistic intricacies of the genome is a crucial problem in biology,
+and pre-trained foundational models such as DNABERT and Nucleotide Transformer have made significant strides in this area. Existing works have largely hinged
+on k-mer, fixed-length permutations of A, T, C, and G, as the token of the genome
+language due to its simplicity. However, we argue that the computation and sample
+inefficiencies introduced by k-mer tokenization are primary obstacles in developing
+large genome foundational models. We provide conceptual and empirical insights
+into genome tokenization, building on which we propose to replace k-mer tokenization with Byte Pair Encoding (BPE), a statistics-based data compression algorithm
+that constructs tokens by iteratively merging the most frequent co-occurring genome
+segment in the corpus. <br>
+[DNABERT Abstract](https://academic.oup.com/bioinformatics/article/37/15/2112/6128680)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ABOUT THE PROJECT 
 ## About The Project
@@ -97,9 +107,9 @@ Input Data are:
 
 Depending on which model you want to test you must process data in two distinguish manner.
 In this section you will learn how to process both. 
-## Common Step for Tokenizer & OHE
+## Common Steps
 As first thing to do we must extract our data: promoters and enhancer 
-### Promoter Preprocessing
+#### Promoter Preprocessing
 1. Download the following files: 
 - genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
 - bed file: [human_epdnew_xxxxxx.bed](https://epd.expasy.org/epd/get_promoters.php) 
@@ -113,11 +123,13 @@ $ python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters leng
 where: 
 -o is the desired position of the output file
 example: 
-python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_xxxxxx.bed -l 100 -o Desktop/folder
+python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_VgGtt.bed -l 100 -o Desktop/folder
 ```
-> [!NOTE] Since this script is used to generate dataset with sequence of variabile length for the Transfomer, by omitting -l parameter will cut promoter sequence of length: 5,10,20,100,200,1000,2000.<br>
-In your case this parameter is **mandatory**
-### Enhancer Preprocessing
+> [!NOTE] 
+> By omitting `-l` parameter will cut promoter sequence of  variable length: 5,10,20,100,200,1000,2000.<br>
+Except for the Transfomer, all the other model take an input sequence of fixed length. <br>
+In your case this `-l` parameter is **mandatory**
+####  Enhancer Preprocessing
 
 1. Download .BED file for enhancer [enhancer_bed.txt](https://bio.liclab.net/ENdb/file/download/ENdb_enhancer.txt)
 2. Download .FASTA file genome file: [GRCh38.p14.genome.fa](https://www.gencodegenes.org/human/)
@@ -131,24 +143,28 @@ This file contains enhancers under the format "chr_name:<start_position> - <end_
 $ pip3 install biopython
 ```
 
-The 'enhancer_preprocessing' script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene. 
-Moreover, the script open GRCh38.FASTA file and with FastaElem class (name, sequence) generate a list of FastaElem. 
-With Gene list and FastaElem list, using BioPython library, the script for each Gene into FastaElem (using the specific start,end position), takes the relative sequence of nucleotides and save it on enhancer.txt output file.
+The **enhancer_preprocessing.py** script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene.<br>
+Moreover, the script open `GRCh38.FASTA` file and with FastaElem class (name, sequence) generate a list of FastaElem. <br> 
+With Gene list and FastaElem list, using BioPython library, the script for each Gene into FastaElem (using the specific start,end position), takes the relative sequence of nucleotides and save it on `enhancer.txt` output file.
 The enhancer.txt file, at the end, contains all the enhancer with the lenght specify in the initial .BED file in hg38 version. 
 
+```sh
+$ python enhancer_preprocessing.py 
+```
 
 
-
-4. Create csv dataset which contains promoter and enhancer sequence. In the previous folder run **create_csv_dataset.py**
+#### Create csv dataset
+It contains promoter and enhancer sequence. In the previous folder run **create_csv_dataset.py**
 ```sh
 $ python create_csv_dataset.py -p <promoter_file> -e <enhancer_file> -o <output_file> -l <promoter_length>
 
 example:
-python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
+$ python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
 ```
 ### Embedding Tokenizer
 1. Fed csv file into **create_embedding.py**
->[!WARNING] The following file require to be execute with GPU
+> [!WARNING] 
+> The following file require to be execute with GPU
 ```sh
 $ python -s <dataset.csv> -d <destination>
 
@@ -163,9 +179,9 @@ $ python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ 
 example:
 python split_dataset.py -e Project/Embedding -d Dataset   
 ```
->[!NOTE]
-- if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
-- -z: can be used only if the embedding zip folder is only one.
+> [!NOTE]
+> - if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
+> - -z: can be used only if the embedding zip folder is only one.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,6 +199,27 @@ example: python create_datasetOHE.py -s ..\Data\dataset100.csv -d . -l 100
 ```
 This script will create dataset folder named `Dataset_x` where x is the length passed by -l option.
 
+### Transformer 
+In order to use the Transfomer model the steps are:
+1. run **extract_promoters.py** without  `-l` option:
+```sh
+example: 
+$ python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_VgGtt.bed -o Desktop/folder
+```
+the output file will be named as `promoters_mixed.fa` <br>
+
+2. run **enhancer_preprocessing.py** will cut enhancer to `maximum sequence length` equal to 1000 because in literature enhancer and promoters have a variabile length of 100-1000 bp.
+```sh
+$ python enhancer_preprocessing.py
+```
+3. run **create_csv_dataset.py** with `-l` equal to 1000 (e.g. `maximum sequence length`) 
+```sh
+example: 
+$ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.csv -l 1000
+```
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -192,7 +229,7 @@ This script will create dataset folder named `Dataset_x` where x is the length p
 ## Testing
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Results 
+## View Result
 Each training produce an output folder that contains checkpoint and "events.out" files. 
 1. Into the terminal run: 
    ```sh
@@ -206,11 +243,9 @@ Each training produce an output folder that contains checkpoint and "events.out"
 4. This command show graphics about training, test and valiadation accuracy and loss.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-## Contacts
-* Antonio De Blasi - [AntonioDeBlasi-Git](https://github.com/AntonioDeBlasi-Git)
-* Francesco Zampirollo - [zampifre](https://github.com/zampifre) 
-* Stefano Politanò - [StePoli-00](https://github.com/StePoli-00) 
+## Performance
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- LICENSE -->
 ## License
@@ -219,7 +254,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+<!-- CONTACT -->
+## Contacts
+* Antonio De Blasi - [AntonioDeBlasi-Git](https://github.com/AntonioDeBlasi-Git)
+* Francesco Zampirollo - [zampifre](https://github.com/zampifre) 
+* Stefano Politanò - [StePoli-00](https://github.com/StePoli-00) 
 
 
 
