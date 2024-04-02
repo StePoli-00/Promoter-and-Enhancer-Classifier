@@ -241,9 +241,9 @@ Each training produce an output folder that contains checkpoint and "events.out"
    ```sh
     pip3 install tensorboard
    ```
-2. After the installation
+2. After the installation move into result folder
    ```sh 
-   cd <training_output_folder>
+   cd lightning_logs
    ```
 3. Now, run command:
    ```sh
