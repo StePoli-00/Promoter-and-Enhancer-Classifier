@@ -238,7 +238,10 @@ Each training produce an output folder that contains checkpoint and "events.out"
    ```sh
     pip3 install tensorboard
    ```
-2. After the installation, into the terminal, cd into the training's output folder.
+2. After the installation
+   ```sh 
+   cd <training_output_folder>
+   ```
 3. Now, run command:
    ```sh
     tensorboard --logdir <name_of_version_folder> 
