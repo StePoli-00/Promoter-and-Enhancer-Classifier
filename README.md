@@ -86,15 +86,15 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 ## Installation
 1. Clone the repository
    ```sh
-   $ git clone https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier.git
+    git clone https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier.git
    ```
 2. After cloning move into the folder: 
    ```sh
-   $ cd Promoter-and-Enhancer-Classifier/
+    cd Promoter-and-Enhancer-Classifier/
    ```
 3. Create a conda environment by requirements.txt 
    ```sh
-   $ conda create --name <env> --file requirements.txt
+    conda create --name <env> --file requirements.txt
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -118,7 +118,7 @@ As first thing to do we must extract our data: promoters and enhancer
 
 ```sh
 cd Data_Preparation 
-$ python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters length> -o <output_path> ]
+python extract_promoters.py -g <genome_file> -b <bed_file> [-l <promoters length> -o <output_path> ]
 
 where: 
 -o is the desired position of the output file
@@ -137,7 +137,7 @@ This file contains enhancers under the format "chr_name:<start_position> - <end_
 
 1. Into terminal run: 
 ```sh
-$ pip3 install biopython
+ pip3 install biopython
 ```
 
 The **enhancer_preprocessing.py** takes different mandatories arguments from command line: 
@@ -152,33 +152,33 @@ With Gene list and FastaElem list, using BioPython library, the script for each 
 The enhancer.txt file, at the end, contains all the enhancer with the lenght specify in the initial .BED file in hg38 version. 
 
 ```sh
-$ python enhancer_preprocessing.py -b <path_bed_file> -f <path_fasta_file> -e <output_name_enhancer_file>
+python enhancer_preprocessing.py -b <path_bed_file> -f <path_fasta_file> -e <output_name_enhancer_file>
 ```
 
 
 #### Create csv dataset
 It contains promoter and enhancer sequence. In the previous folder run **create_csv_dataset.py**
 ```sh
-$ python create_csv_dataset.py -p <promoter_file> -e <enhancer_file> -o <output_file> -l <promoter_length>
+python create_csv_dataset.py -p <promoter_file> -e <enhancer_file> -o <output_file> -l <promoter_length>
 
 example:
-$ python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
+python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
 ```
 ### Embedding Tokenizer
 1. Fed csv file into **create_embedding.py**
 > [!WARNING] 
 > The following file require to be execute with GPU
 ```sh
-$ python -s <dataset.csv> -d <destination>
+python -s <dataset.csv> -d <destination>
 
 example:
-$ python -s data.csv -d Project_Folder/
+python -s data.csv -d Project_Folder/
 ```
 This file will create `Embedding` folder in the destination path provided  which contains `embeddings` and `labels` of our data converted from sequence to embeddings using Tokenizer of DNABert. 
 
 2. run **split_dataset.py** to  create Dataset folder, run the following command: 
 ```sh
-$ python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ -z <embedding_zip_path>]  
+ python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ -z <embedding_zip_path>]  
 example:
 python split_dataset.py -e Project/Embedding -d Dataset   
 ```
@@ -191,7 +191,7 @@ python split_dataset.py -e Project/Embedding -d Dataset
 ### One Hot Encoding
 After the common steps run this command to generate OHE Dataset
 ```sh
-$ python create_datasetOHE.py -s <source_path> -d <destionation_path> -l <sequence_length>
+python create_datasetOHE.py -s <source_path> -d <destionation_path> -l <sequence_length>
 
 where:
 -s: is the csv file obtained at the end of common steps
@@ -207,18 +207,18 @@ In order to use the Transfomer model the steps are:
 1. run **extract_promoters.py** without  `-l` option:
 ```sh
 example: 
-$ python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_VgGtt.bed -o Desktop/folder
+python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_VgGtt.bed -o Desktop/folder
 ```
 the output file will be named as `promoters_mixed.fa` <br>
 
 2. run **enhancer_preprocessing.py** will cut enhancer to `maximum sequence length` equal to 1000 because in literature enhancer and promoters have a variabile length of 100-1000 bp.
 ```sh
-$ python enhancer_preprocessing.py
+python enhancer_preprocessing.py
 ```
 3. run **create_csv_dataset.py** with `-l` equal to 1000 (e.g. `maximum sequence length`) 
 ```sh
 example: 
-$ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.csv -l 1000
+python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.csv -l 1000
 ```
 
 
@@ -236,12 +236,12 @@ $ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset
 Each training produce an output folder that contains checkpoint and "events.out" files. 
 1. Into the terminal run: 
    ```sh
-   $ pip3 install tensorboard
+    pip3 install tensorboard
    ```
 2. After the installation, into the terminal, cd into the training's output folder.
 3. Now, run command:
    ```sh
-   $ tensorboard --logdir <name_of_version_folder> 
+    tensorboard --logdir <name_of_version_folder> 
    ```
 4. This command show graphics about training, test and valiadation accuracy and loss.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
