@@ -92,11 +92,14 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
    ```sh
     cd Promoter-and-Enhancer-Classifier/
    ```
-3. Create a conda environment by requirements.txt 
+3. Create a conda environment with python 3.11
    ```sh
-    conda create --name <env> --file requirements.txt
+   conda create -n <env> python=3.11
    ```
-
+4. Install dependencies
+   ```sh
+   pip install -r requirements.txt
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Data Preparation 
