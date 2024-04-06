@@ -133,9 +133,26 @@ python extract_promoters.py -g GRCh38.p14.genome.fa -b human_epdnew_VgGtt.bed -l
 Except for the Transfomer, all the other model take an input sequence of fixed length. <br>
 In your case this `-l` parameter is **mandatory**
 ####  Enhancer Preprocessing
+**First Enhancers Preprocessing**
 
+For what concern the first enhancers preprocessing is required: 
+1. Go to https://bio.liclab.net/ENdb/Download.php
+2. Download file signed by "All the experimentally confirmed enhancers"
+3. After that you should obtain a file (that now we call **ENHANCER.txt**) that is the only file required for this step.
 
-After the conversion from hg19 to hg38 using https://genome.ucsc.edu/cgi-bin/hgLiftOver, we obtain a .BED file that is a list of all enhancers converted into hg38 format.
+Now you need the execution of *first_enhancer_preprocessing.py*. 
+
+This file take ENHANCER.txt, remove the 'mm10' genes (that is genes of mouse) and generate a file in a hg19 format (necessary for the next step of preprocessing). 
+
+Into terminal run: 
+```sh
+ python3 first_enhancer_preprocessing.py -e ENHANCER.txt -hg19_list <name_of_file_for_hg19_list>.txt -mm10_list <name_of_mm10_file>.txt
+```
+This command generates a file called <name_of_file_for_hg19_list>.txt that you will use for the second step of enhancers preprocessing. 
+
+**Second Enhancers Preprocessing**
+
+Using https://genome.ucsc.edu/cgi-bin/hgLiftOver, you upload on this web tool the <name_of_file_for_hg19_list>.txt (obtained in the previous step) and obtain a .BED file that is a list of all enhancers converted into hg38 format.
 This file contains enhancers under the format "chr_name:<start_position> - <end_position>".
 
 1. Into terminal run: 
