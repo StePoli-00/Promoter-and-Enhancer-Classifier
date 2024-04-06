@@ -138,21 +138,23 @@ In your case this `-l` parameter is **mandatory**
 For what concern the first enhancers preprocessing is required: 
 1. Go to https://bio.liclab.net/ENdb/Download.php
 2. Download file signed by "All the experimentally confirmed enhancers"
-3. After that you should obtain a file (that now we call **ENHANCER.txt**) that is the only file required for this step.
+
 
 Now you need the execution of *first_enhancer_preprocessing.py*. 
 
-This file take ENHANCER.txt, remove the 'mm10' genes (that is genes of mouse) and generate a file in a hg19 format (necessary for the next step of preprocessing). 
+This file take `enhancer_file`, remove the **mm10 genes** (that is genes of mouse) and generate a file in a hg19 format (necessary for the next step of preprocessing). 
 
 Into terminal run: 
 ```sh
- python3 first_enhancer_preprocessing.py -e ENHANCER.txt -hg19_list <name_of_file_for_hg19_list>.txt -mm10_list <name_of_mm10_file>.txt
+ python3 first_enhancer_preprocessing.py -e <enhancer_file.txt> -hg19_list <name_of_file_for_hg19_list>.txt -mm10_list <name_of_mm10_file>.txt
 ```
-This command generates a file called <name_of_file_for_hg19_list>.txt that you will use for the second step of enhancers preprocessing. 
+> [!NOTE]
+> This command generates a file called `name_of_file_for_hg19_list.txt` that you will use for the second step of enhancers preprocessing. 
 
 **Second Enhancers Preprocessing**
 
-Using https://genome.ucsc.edu/cgi-bin/hgLiftOver, you upload on this web tool the <name_of_file_for_hg19_list>.txt (obtained in the previous step) and obtain a .BED file that is a list of all enhancers converted into hg38 format.
+Using https://genome.ucsc.edu/cgi-bin/hgLiftOver, you upload on this web tool the 
+`name_of_file_for_hg19_list.txt` (obtained in the previous step) and obtain a .BED file that is a list of all enhancers converted into hg38 format.
 This file contains enhancers under the format "chr_name:<start_position> - <end_position>".
 
 1. Into terminal run: 
@@ -161,9 +163,9 @@ This file contains enhancers under the format "chr_name:<start_position> - <end_
 ```
 
 The **enhancer_preprocessing.py** takes different mandatories arguments from command line: 
-1) option "-b": path bed file (hg38) 
-2) option "-f": path fasta file (GRCh38.FASTA 3gb) 
-3) option "-e": name of output file (.txt) for the final sequences.
+1) option `-b`: path bed file (hg38) 
+2) option `-f`: path fasta file (GRCh38.FASTA 3gb) 
+3) option `-e`: name of output file (.txt) for the final sequences.
 
 
 Initially, the script open the .BED file and, using a Gene class (name, start, end) generate an iterative list of Gene.<br>
