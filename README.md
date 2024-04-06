@@ -45,14 +45,23 @@
   
   <li><a href="#data-preparation">Data Preparation</a>
     <ul>
+    <li>
+    <a href="#common-steps">Common Steps</a>
+    <ul>
+    <li><a href="#promoter-preprocessing">Promoter Preprocessing</a></li>
+    <li><a href="#enhancer-preprocessing">Enhancer Preprocessing</a></li>
+    </ul>
+    </li>
     <li><a href="#embedding-tokenizer">Embedding Tokenizer</a></li>
     <li><a href="#one-hot-encoding">One Hot Encoding</a></li>
+    <li><a href="#transformer">Transfomer</a></li>
     </ul>
   </li>
   
   <li><a href="#training">Training</a></li>
   <li><a href="#testing">Testing</a></li>
-  <li><a href="#resut">Results</a></li>
+  <li><a href="#view-result">View Result</a></li>
+  <li><a href="#performance">Performance</a></li>
 </ol>
 
 
@@ -230,6 +239,7 @@ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.c
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Training
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Testing
