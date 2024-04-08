@@ -19,7 +19,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-<h1 align="center">Promoter & Enhancer Classsifier</h1>
+<h1 align="center">Promoter & Enhancer Classifier</h1>
 
 <!-- PROJECT LOGO -->
 
