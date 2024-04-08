@@ -5,6 +5,10 @@ import pandas as pd
 from torch.utils.data import Dataset
 
 datapath = "/home/antoniodeblasi/Scaricati/data.csv"
+savepath = "/home/antoniodeblasi/Scaricati/Dataset_1_hot"
+DataTrainpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot"
+DataTestpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot_validation"
+DataValpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot_testing"
 
 class CustomDataSet(Dataset):
     def __init__(self, csv_file):
@@ -24,7 +28,7 @@ train_data_object = CustomDataSet(datapath)
 train_loader = torch.utils.data.DataLoader(train_data_object,
         batch_size=32, shuffle = False)
 
-savepath = "/home/antoniodeblasi/Scaricati/Dataset_1_hot"
+
 
 for i,item in enumerate(train_loader):
   dna,label = item
@@ -73,9 +77,7 @@ class MyDataSet(Dataset):
 
         return sequence, label
 
-DataTrainpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot"
-DataTestpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot_validation"
-DataValpath="/home/antoniodeblasi/Scaricati/Dataset_1_hot_testing"
+
 
 
 # Create custom dataset object
@@ -124,6 +126,9 @@ class CNN(pl.LightningModule):
 
         # for validation/testing
         self.accuracy = torchmetrics.Accuracy(task="binary")
+        self.f1=torchmetrics.classification.BinaryF1Score()
+        self.precision=torchmetrics.classification.BinaryPrecision()
+        self.recall=torchmetrics.classification.BinaryRecall()
 
     def forward(self, x):
         # print(x.shape)
@@ -161,17 +166,29 @@ class CNN(pl.LightningModule):
         logits = self.forward(x).squeeze()
         loss = self.cross_entropy_loss(logits, y)
         acc = self.accuracy(logits, y)
-
+        f1_val=self.f1(logits,y)
+        precision_val=self.precision(logits,y)
+        recall_val=self.recall(logits,y)
         self.log('val_loss', loss)
         self.log('val_accuracy', acc)
+        self.log('val_f1', f1_val)
+        self.log('val_precision', precision_val)
+        self.log('val_recall', recall_val)
 
     def test_step(self, test_batch, batch_idx):
         x, y = test_batch
         logits = self.forward(x).squeeze()
         loss = self.cross_entropy_loss(logits, y)
         acc = self.accuracy(logits, y)
+        f1_test=self.f1(logits,y)
+        precision_test=self.precision(logits,y)
+        recall_test=self.recall(logits,y)
+
         self.log('test_loss', loss)
+        self.log('test_f1', f1_test)
         self.log('test_accuracy', acc)
+        self.log('test_precision', precision_test)
+        self.log('test_recall', recall_test)
 
     def configure_optimizers(self):
       optimizer = torch.optim.Adam(self.parameters(), lr=1e-4)
@@ -183,7 +200,8 @@ model = CNN()
 torch.backends.cuda.matmul.allow_tf32 = True
 
 torch.backends.cudnn.allow_tf32 = True
-trainer = pl.Trainer(max_epochs = 80)
+num_epoch=""
+trainer = pl.Trainer(max_epochs =num_epoch)
 
 data_module = MyDataModule()
 p = trainer.test(model, data_module)
