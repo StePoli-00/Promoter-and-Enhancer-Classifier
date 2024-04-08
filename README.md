@@ -33,13 +33,15 @@
   
 </div>
 
+## Abstract
+Promoters and enhancers are both gene regulation elements and are often involved in activating specific genes. They are crucial elements in the regulation of gene expression, playing key roles in controlling when, where, and how much of a gene is transcribed into RNA and eventually translated into protein.
+ Their similarity can make it difficult to distinguish them for several reasons. Promoters and enhancers may share some similar or identical DNA sequences. <br> Both contain binding sequences for regulatory proteins, such as transcription factors, which can bind and influence gene activity. These sequences can be present in different combinations and contexts in both promoters and enhancers, making it challenging to distinguish the two elements based solely on DNA sequence. Furthermore they perform different but related functions. Promoters are generally positioned near the gene they regulate and are responsible for initiating transcription, while enhancers can be located at variable distances from the target gene and act by enhancing transcription efficiency. Some enhancers can also act as alternative promoters or vice versa.
 
 # Table of Contents
 <!-- TABLE OF CONTENTS -->
 
 <ol style="font-size:18px;">
-  <li>
-    <a href="#abstract">Abstract</a>
+
   <li><a href="#installation">Installation</a></li>
     
   
@@ -65,17 +67,8 @@
 </ol>
 
 
-## Abstract
-Decoding the linguistic intricacies of the genome is a crucial problem in biology,
-and pre-trained foundational models such as DNABERT and Nucleotide Transformer have made significant strides in this area. Existing works have largely hinged
-on k-mer, fixed-length permutations of A, T, C, and G, as the token of the genome
-language due to its simplicity. However, we argue that the computation and sample
-inefficiencies introduced by k-mer tokenization are primary obstacles in developing
-large genome foundational models. We provide conceptual and empirical insights
-into genome tokenization, building on which we propose to replace k-mer tokenization with Byte Pair Encoding (BPE), a statistics-based data compression algorithm
-that constructs tokens by iteratively merging the most frequent co-occurring genome
-segment in the corpus. <br>
-[DNABERT Abstract](https://academic.oup.com/bioinformatics/article/37/15/2112/6128680)
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ABOUT THE PROJECT 
 ## About The Project
