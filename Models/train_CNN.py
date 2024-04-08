@@ -81,6 +81,9 @@ class CNN(pl.LightningModule):
 
         # for validation/testing
         self.accuracy = torchmetrics.Accuracy(task="binary")
+        self.f1=torchmetrics.classification.BinaryF1Score()
+        self.precision=torchmetrics.classification.BinaryPrecision()
+        self.recall=torchmetrics.classification.BinaryRecall()
 
 
     def forward(self, x):
@@ -122,10 +125,14 @@ class CNN(pl.LightningModule):
         logits = self.forward(x).squeeze()
         loss = self.cross_entropy_loss(logits, y)
         acc = self.accuracy(logits,y)
-
+        f1_val=self.f1(logits,y)
+        precision_val=self.precision(logits,y)
+        recall_val=self.recall(logits,y)
         self.log('val_loss', loss)
         self.log('val_accuracy', acc)
-
+        self.log('val_f1', f1_val)
+        self.log('val_precision', precision_val)
+        self.log('val_recall', recall_val)
 
 
 
@@ -134,9 +141,15 @@ class CNN(pl.LightningModule):
         logits = self.forward(x).squeeze()
         loss = self.cross_entropy_loss(logits, y)
         acc = self.accuracy(logits,y)
+        f1_test=self.f1(logits,y)
+        precision_test=self.precision(logits,y)
+        recall_test=self.recall(logits,y)
 
         self.log('test_loss', loss)
+        self.log('test_f1', f1_test)
         self.log('test_accuracy', acc)
+        self.log('test_precision', precision_test)
+        self.log('test_recall', recall_test)
 
     def configure_optimizers(self):
       optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.8)
