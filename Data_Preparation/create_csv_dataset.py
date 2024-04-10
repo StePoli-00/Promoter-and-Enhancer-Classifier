@@ -68,7 +68,7 @@ def load_enhancers(enhancer_path):
     i += 1
   return enhancer_list
 
-def load_promoters():
+def load_promoters(promoter_path):
   promoter_list=[]
   # open fasta file to read promoter sequence
   with open(promoter_path, "r") as handle:
@@ -102,7 +102,7 @@ def balance_dataset(promoter_dataset,enhancer_dataset):
     dataset=promoter_dataset+enhancer_dataset
     print(f"promoter dim: {dim_prom}")
     print(f"enhancer_dim: {dim_en}")
-    print(f"lenght of the dataset {len(dataset)}")
+    print(f"length of the dataset {len(dataset)}")
     
     return dataset
 
@@ -119,17 +119,17 @@ def save_data_into_csv(dataset, csv_path):
 
 if __name__=="__main__":
 
-  parser=argparse.ArgumentParser
-  parser.add_argument("-p","-promoter", help="promoter file (.fa)")
-  parser.add_argument("-e","-enhancer",help="enhancer file (.txt)")
-  parser.add_argument("-o","-output", help="output filename (.csv)")
-  parser.add_argument("-l","-length", help="length of promoters")
+  parser=argparse.ArgumentParser()
+  parser.add_argument("-p","--promoter", help="promoter file (.fa)")
+  parser.add_argument("-e","--enhancer",help="enhancer file (.txt)")
+  parser.add_argument("-o","--output", help="output filename (.csv)")
+  parser.add_argument("-l","--length", help="length of promoters")
   args=parser.parse_args()
   
-  promoter_path=parser.promoter
-  enhancer_path=parser.enhancer
-  seq_length=parser.length
-  csv_path=parser.output
+  promoter_path=args.promoter
+  enhancer_path=args.enhancer
+  seq_length=args.length
+  csv_path=args.output
 
   if promoter_path is None or enhancer_path is None or seq_length is None or csv_path is None:
     parser.print_help()
