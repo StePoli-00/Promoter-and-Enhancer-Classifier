@@ -189,25 +189,36 @@ example:
 python create_csv_dataset.py -p promoters_100.fa -e enhancers.txt -o dataset.csv -l 100
 ```
 ### Embedding Tokenizer
-1. Fed csv file into **create_embedding.py**
+
 > [!WARNING] 
 > The following file require to be execute with GPU
-```sh
-python -s <dataset.csv> -d <destination>
+1. make sure you have installed einops package, otherwise install it:
+   ```sh
+   pip install einops
+   ```
+2. Fed csv file into **create_embedding.py**
+   ```sh
+   python -s <dataset.csv> -d <destination>
 
-example:
-python -s data.csv -d Project_Folder/
-```
-This file will create `Embedding` folder in the destination path provided  which contains `embeddings` and `labels` of our data converted from sequence to embeddings using Tokenizer of DNABert. 
+   example:
+   python -s data.csv -d Project_Folder/
+   ```
+>[!NOTE] 
+>- This script  will create `Embedding` folder in the destination path provided  which contains `embeddings` and `labels` of our data converted from sequence to embeddings using Tokenizer of DNABert. 
+> - Before to run the script make sure that destination folder doesn't have any folder named `Embedding` because the script will stop. This behaviour is implemented in order to avoid overriding data from previous execution of the code. 
+> - if you have encounterd this type of error: `assert q.is_cuda and k.is_cuda and v.is_cuda` try to unistall triton package
 
-2. run **split_dataset.py** to  create Dataset folder, run the following command: 
-```sh
- python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ -z <embedding_zip_path>]  
-example:
-python split_dataset.py -e Project/Embedding -d Dataset   
-```
+
+
+
+3. run **split_dataset.py** to  create Dataset folder, run the following command: 
+   ```sh
+   python split_dataset.py -e <embedding_folder_path> -d <dataset_folder_path> [ -z <embedding_zip_path>]  
+   example:
+   python split_dataset.py -e Project/Embedding -d Dataset   
+   ```
 > [!NOTE]
-> - if you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
+> - If you want to use -z option <embedding_zip_path> must have the same name for  embedding_folder_path
 > - -z: can be used only if the embedding zip folder is only one.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -218,9 +229,9 @@ After the common steps run this command to generate OHE Dataset
 python create_datasetOHE.py -s <source_path> -d <destionation_path> -l <sequence_length>
 
 where:
--s: is the csv file obtained at the end of common steps
--d: destionation of Dataset folder
--l: length of the sequence
+- s: is the csv file obtained at the end of common steps
+- d: destionation of Dataset folder
+- l: length of the sequence
 
 example: python create_datasetOHE.py -s ..\Data\dataset100.csv -d . -l 100
 ```
