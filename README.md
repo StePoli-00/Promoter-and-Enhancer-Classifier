@@ -25,7 +25,7 @@
 
 <div align="center">
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier">
-    <img src="images/dna.gif" alt="Logo" width="200" height="200">
+    <img src="images/200.gif" alt="Logo">
   </a>
   <p align="center">This Repository contains all the information, <br>code of  Promoter and Enhancer Classifier project</p>
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier"><strong>Explore the docs »</strong></a>
