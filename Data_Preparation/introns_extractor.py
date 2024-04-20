@@ -39,11 +39,11 @@ def extract_introns():
         
             if strand=="-":
                 #print(f"id:{k} begin:{end} end:{begin} strand {strand}")
-                subs=sequence[int(end)-1:int(begin)-1]
+                subs=sequence[int(end)-1:int(begin)]
                 subs=Seq.reverse_complement(subs)
             else:
                 #print(f"id:{k} begin:{begin} end:{end} strand {strand}")
-                subs=sequence[int(begin)-1:int(end)-1]
+                subs=sequence[int(begin)-1:int(end)]
 
             """taking all the exon of one chromosome and extract introns in this pattern
             may happend that exon very far are treated as closer, since they are inside the same list.
