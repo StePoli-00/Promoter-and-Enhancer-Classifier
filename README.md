@@ -61,7 +61,7 @@ Promoters and enhancers are both gene regulation elements and are often involved
   </li>
   
   <li><a href="#training">Training</a></li>
-  <li><a href="#testing">Testing</a></li>
+  <li><a href="#inference">Inference</a></li>
   <li><a href="#view-result">View Result</a></li>
   <li><a href="#performance">Performance</a></li>
 </ol>
@@ -265,7 +265,7 @@ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.c
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Testing
+## Inference
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## View Result
@@ -286,6 +286,21 @@ Each training produce an output folder that contains checkpoint and "events.out"
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Performance
+The following table report interval of confidence of our models
+
+
+|<p align="center"> Models   </p> |<p align="center"> Accuracy  </p>   | <p align="center"> Loss  </p>  | <p align="center">  Specificity </p>  | <p align="center"> Sensitivity </p> |<p align="center"> F1 score </p> | <p align="center"> MCC</p>  | <p align="center"> AUC</p> |
+| --- | -------- | ---   | -----    |  ---    | -----|           --- |  -----    | 
+| CNN 1D with Embedding| 0.905 ± 0.007|0.454± 0.043|0.907± 0.027|0.905± 0.030|0.902± 0.006|0.827± 0.029|0.968± 0.013| 
+|CNN 1D with One Hot Encoding| 0.888 ± 0.01|0.884 ± 0.029|0.905± 0.024|0.890± 0.009|0.815 ± 0.273 |0.772 ± 0.029|0.947 ± 0.011| 
+|Transformer BERT|0.668 ± 0.133|0.562 ± 0.019|0.346 ± 0.070|0.982 ± 0.078|0.501 ± 0.095|0.448 ± 0.068|0.674 ± 0.035| 
+|Transformer DNABERT2|0.961 ± 0.005|0.133 ± 0.009|0.944 ± 0.006|0.979 ± 0.001 |0.960 ± 0.001| 0.923 ± 0.012|0.987 ± 0.012| 
+|Transformer InstaDeep| 0.958 ± 0.005|0.158 ± 0.007|0.946 ± 0.016|0.968 ± 0.007|0.956 ± 0.023|0.916  ± 0.005|0.985 ± 0.001|
+
+
+
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
