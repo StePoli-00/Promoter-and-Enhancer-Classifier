@@ -266,6 +266,22 @@ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.c
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Inference
+To test Transformer model on inference mode:
+1. extract exons from reference genome annotation file (.gtf)
+   ```sh
+   python exons_extractor.py -gtf <genome_annotation_file> -out <output_file> -ch <list of crhomosome to extract >
+   example:
+   python exons_extractor.py gencode.v45.annotation.gtf -out exons.json  -ch chr1,chr2,chr3
+   ```
+2. extract introns from reference genome (.fa)
+   ```sh
+   
+   ```
+4. pass the introns sequence to the model 
+    ```sh
+   
+   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## View Result
