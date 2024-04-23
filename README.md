@@ -148,7 +148,7 @@ This file take `enhancer_file`, remove the **mm10 genes** (that is genes of mous
 
 Into terminal run: 
 ```sh
- python3 first_enhancer_preprocessing.py -e <enhancer_file.txt> -hg19_list <name_of_file_for_hg19_list>.txt -mm10_list <name_of_mm10_file>.txt
+ python first_enhancer_preprocessing.py -e <enhancer_file.txt> -hg19_list <name_of_file_for_hg19_list>.txt -mm10_list <name_of_mm10_file>.txt
 ```
 > [!NOTE]
 > This command generates a file called `name_of_file_for_hg19_list.txt` that you will use for the second step of enhancers preprocessing. 
@@ -256,31 +256,43 @@ example:
 python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.csv -l 1000
 ```
 
-
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Training
 
+inserire i comandi per eseguire i trainining
+```sh
+```
+
+```sh
+```
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Inference
-To test Transformer model on inference mode:
-1. extract exons from reference genome annotation file (.gtf)
+To test Transformer model on inference mode, visit the `Inference Folder`. Inside of subfolder `Script` use following python files in the following order:
+
+1. extract exons from reference genome annotation file (.gtf): the output will be a `.json` file which contains all exon positions 
    ```sh
    python exons_extractor.py -gtf <genome_annotation_file> -out <output_file> -ch <list of crhomosome to extract >
    example:
    python exons_extractor.py gencode.v45.annotation.gtf -out exons.json  -ch chr1,chr2,chr3
    ```
-2. extract introns from reference genome (.fa)
+2. extract introns from reference genome (.fa): the output file will be a `.csv` file  containing introns sequence 
    ```sh
+   python -gr <genome_reference> -ex <exon_file.json> -out <introns_output_basename>
    
+   example: 
+   python -gr GRCh38.p14.genome.fa -ex exons.json -out introns
    ```
-4. pass the introns sequence to the model 
+     The output file has been released in subfolder `Data` in order to check the final result
+
+3. pass the introns sequence to the model 
     ```sh
-   
+      python ...
    ```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -307,7 +319,7 @@ The following table report interval of confidence of our models
 
 |<p align="center"> Models   </p> |<p align="center"> Accuracy  </p>   | <p align="center"> Loss  </p>  | <p align="center">  Specificity </p>  | <p align="center"> Sensitivity </p> |<p align="center"> F1 score </p> | <p align="center"> MCC</p>  | <p align="center"> AUC</p> |
 | --- | -------- | ---   | -----    |  ---    | -----|           --- |  -----    | 
-| CNN 1D with Embedding| 0.905 ± 0.007|0.454± 0.043|0.907± 0.027|0.905± 0.030|0.902± 0.006|0.827± 0.029|0.968± 0.013| 
+| CNN 1D with Embedding| 0.905 ± 0.007|0.454 ± 0.043|0.907 ± 0.027|0.905 ± 0.030|0.902 ± 0.006|0.827 ± 0.029|0.968± 0.013| 
 |CNN 1D with One Hot Encoding| 0.888 ± 0.01|0.884 ± 0.029|0.905± 0.024|0.890± 0.009|0.815 ± 0.273 |0.772 ± 0.029|0.947 ± 0.011| 
 |Transformer BERT|0.668 ± 0.133|0.562 ± 0.019|0.346 ± 0.070|0.982 ± 0.078|0.501 ± 0.095|0.448 ± 0.068|0.674 ± 0.035| 
 |Transformer DNABERT2|0.961 ± 0.005|0.133 ± 0.009|0.944 ± 0.006|0.979 ± 0.001 |0.960 ± 0.001| 0.923 ± 0.012|0.987 ± 0.012| 
