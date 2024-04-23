@@ -189,21 +189,4 @@ if __name__=="__main__":
     trainer.fit(model, data_module)
     # Valutazione del modello
     p = trainer.test(model, data_module)
-    print("Loss sul set di validazione:", p)
-
-
-    """
-    mod = CNN.load_from_checkpoint("lightning_logs/version_42/checkpoints/epoch=39-step=30600.ckpt")
-
-
-
-
-    trainer = pl.Trainer(max_epochs = 40)
-
-    data_module = MyDataModule()
-
-    p = trainer.test(mod, data_module)
-
-    for i, el in enumerate(test_data_object):
-
-        print(el[0][mod(el[0]).squeeze() < 0.5])"""
+    print("Test:", p)
