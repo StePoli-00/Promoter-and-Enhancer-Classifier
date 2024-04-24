@@ -20,14 +20,21 @@
 -->
 
 <h1 align="center">Promoter & Enhancer Classifier</h1>
-
+<h3 align="center">
+<a href="https://docs.google.com/document/d/1r-azIsUqJrdEbpgsmWeNWrRSSLzxAOzr/edit?usp=sharing&ouid=105130564080223781721&rtpof=true&sd=true"> 
+Related Report</a>
+</h3>
 <!-- PROJECT LOGO -->
 
 <div align="center">
+   
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier">
     <img src="images/200.gif" alt="Logo">
   </a>
-  <p align="center">This Repository contains all the information, <br>code of  Promoter and Enhancer Classifier project</p>
+  
+  <!-- <p align="center">Related Report</p> -->
+
+  
   <a href="https://github.com/StePoli-00/Promoter-and-Enhancer-Classifier"><strong>Explore the docs »</strong></a>
     
   
@@ -35,7 +42,7 @@
 
 ## Abstract
 Promoters and enhancers are both gene regulation elements and are often involved in activating specific genes. They are crucial elements in the regulation of gene expression, playing key roles in controlling when, where, and how much of a gene is transcribed into RNA and eventually translated into protein.
- Their similarity can make it difficult to distinguish them for several reasons. Promoters and enhancers may share some similar or identical DNA sequences. <br> Both contain binding sequences for regulatory proteins, such as transcription factors, which can bind and influence gene activity. These sequences can be present in different combinations and contexts in both promoters and enhancers, making it challenging to distinguish the two elements based solely on DNA sequence. Furthermore they perform different but related functions. Promoters are generally positioned near the gene they regulate and are responsible for initiating transcription, while enhancers can be located at variable distances from the target gene and act by enhancing transcription efficiency. Some enhancers can also act as alternative promoters or vice versa.
+ Their similarity can make it difficult to distinguish them for several reasons. Promoters and enhancers may share some similar or identical DNA sequences. <br> Both contain binding sequences for regulatory proteins, such as transcription factors, which can bind and influence gene activity. These sequences can be present in different combinations and contexts in both promoters and enhancers, making it challenging to distinguish the two elements based solely on DNA sequence. Furthermore they perform different but related functions. Promoters are generally positioned near the gene they regulate and are responsible for initiating transcription, while enhancers can be located at variable distances from the target gene and act by enhancing transcription efficiency.
 
 # Table of Contents
 <!-- TABLE OF CONTENTS -->
