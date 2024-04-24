@@ -22,7 +22,7 @@
 <h1 align="center">Promoter & Enhancer Classifier</h1>
 <h3 align="center">
 <a href="https://docs.google.com/document/d/1r-azIsUqJrdEbpgsmWeNWrRSSLzxAOzr/edit?usp=sharing&ouid=105130564080223781721&rtpof=true&sd=true"> 
-Related Report</a>
+Associated Report</a>
 </h3>
 <!-- PROJECT LOGO -->
 
