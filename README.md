@@ -257,10 +257,41 @@ the output file will be named as `promoters_mixed.fa` <br>
 ```sh
 python enhancer_preprocessing.py
 ```
+
 3. run **create_csv_dataset.py** with `-l` equal to 1000 (e.g. `maximum sequence length`) 
 ```sh
 example: 
 python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.csv -l 1000
+```
+4. Now that you have the csv file, create three folder 
+```sh
+    Datatset
+    Dataset_validation
+    Dataset_testing
+```
+and in each folder create three folders:
+```sh
+    ids
+    att_mask
+    labels
+```
+5. run saving_data.py 
+```sh
+python saving_data.py -csv=<path to the csv> -dataset=<path to the Dataset folder> -tokenizer=<type of tokenizer>
+example:
+python saving_data.py -csv=".../dataset_different_size.csv" -dataset=".../Dataset" -tokenizer="DnaBert" 
+```
+ you can select three different type of tokenizer:
+```sh
+insert Bert, for bert tokenizer
+insert Deep, for InstaDeep
+inser DnaBert, for DnaBert2
+```
+6. run split_dataset.py, to create Training, Testing and Validation set.
+```sh
+python split_dataset.py -train=<path to the Training folder> -test=<path to the Testing folder> -validation=<path to the Validation folder>
+example:
+python split_dataset.py -train=".../Dataset" -test=".../Dataset_testing"  -validation=".../Dataset_validation" 
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -277,7 +308,11 @@ Training command for CNN that takes input One Hot Encoding
    python train_OHE.py -d <dataset_path>
       example:  train_OHE.py -d Dataset200
 ```
-
+Training command for Transformer
+```sh
+    python Training.py -train= <path to training data folder> -test= <path to testing data folder> -validation= <path to validation data folder>
+    example:  python Training.py -train=".../Dataset" -test="..../Dataset_testing" -validation="..../Dataset_validation"   
+```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -305,7 +340,7 @@ To test Transformer model on inference mode, visit the `Inference Folder`. Insid
    example:
    python exons_extractor.py gencode.v45.annotation.gtf -out exons.json  -ch chr1,chr2,chr3
    ```
-2. extract introns from reference genome (.fa): the output file will be a `.csv` file  containing introns sequence 
+2. extract introns from reference genome (.fa): the output file will be a `.csv` file  containing introns sequence
    ```sh
    python -gr <genome_reference> -ex <exon_file.json> -out <introns_output_basename>
    
@@ -316,7 +351,10 @@ To test Transformer model on inference mode, visit the `Inference Folder`. Insid
 
 3. pass the introns sequence to the model 
     ```sh
-      python ...
+    python inference.py -data=<path to the introns csv> -weights=<path to the checkpoints> 
+
+    example:
+    python inference.py -data=".../introns.csv" -weights=".../epoch=3-step=1736.ckpt"" 
    ```
 
 
