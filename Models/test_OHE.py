@@ -193,12 +193,14 @@ def split_dataset(train,test,validation):
 if __name__ == "__main__": 
   
   parser = argparse.ArgumentParser(description="Parser for OHE training")
+  parser.add_argument('-c',"--checkpoint",help="checkpoint path (.ckpt files)")
   parser.add_argument("-d", "--dataset_path", help="dataset complete path")
   
   args = parser.parse_args()
+  checkpoint=args.checkpoint
   Dataset_path = args.dataset_path
   
-  if Dataset_path is None: 
+  if Dataset_path is None and checkpoint is None: 
     parser.print_help()
     parser.error("Parameter Dataset_Path error")
   
@@ -214,7 +216,7 @@ if __name__ == "__main__":
   val_data_object = MyDataSet(DataValpath)
 
   # Creazione del modello
-  model = CNN()
+  model = CNN.load_from_checkpoint(checkpoint)
 
   torch.backends.cuda.matmul.allow_tf32 = True
 
@@ -225,7 +227,5 @@ if __name__ == "__main__":
   data_module = MyDataModule()
   p = trainer.test(model, data_module)
 
-  trainer.fit(model, data_module)
-  # Valutazione del modello
-  p = trainer.test(model, data_module)
-  print("Loss sul set di validazione:", p)
+  # Test del modello
+  print("Test:", p)

@@ -158,4 +158,5 @@ if __name__=="__main__":
     trainer = pl.Trainer(max_epochs = 200)
     data_module = MyDataModule()
     p = trainer.test(mod, data_module)
+    print("Test:", p)
 
