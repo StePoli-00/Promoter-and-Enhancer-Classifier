@@ -207,6 +207,6 @@ data_module = MyDataModule()
 p = trainer.test(model, data_module)
 
 trainer.fit(model, data_module)
-# Valutazione del modello
+
 p = trainer.test(model, data_module)
-print("Loss sul set di validazione:", p)
+print("Testing":", p)

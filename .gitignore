@@ -1,2 +1,4 @@
 Data/GRCh38.p14.genome.fa
 Data/human_epdnew_VgGtt.bed
+.vscode
+Data/gencode.v45.annotation.gtf

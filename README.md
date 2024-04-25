@@ -267,12 +267,17 @@ python create_csv_dataset.py -p promoters_mixed.fa -e enhancers.txt -o dataset.c
 
 ## Training
 
-inserire i comandi per eseguire i trainining
+Training command for CNN that takes input Embeddings
 ```sh
+   python train_CNN.py -d <dataset_path>
+   example:  train_CNN.py -d Dataset200
+```
+Training command for CNN that takes input One Hot Encoding
+```sh
+   python train_OHE.py -d <dataset_path>
+      example:  train_OHE.py -d Dataset200
 ```
 
-```sh
-```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
