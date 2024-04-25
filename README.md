@@ -296,7 +296,7 @@ checkpoints are saved into `lightning_logs/<version_number>/checkpoints` weights
    python test_OHE.py -c <checkpoint_file> -d <dataset_path>
    example:  test_CNN.py -c lightning_logs/version_0/checkpoints/check01.ckpt -d Dataset200
 ```
-
+### Transformer
 To test Transformer model on inference mode, visit the `Inference Folder`. Inside of subfolder `Script` use following python files in the following order:
 
 1. extract exons from reference genome annotation file (.gtf): the output will be a `.json` file which contains all exon positions 
