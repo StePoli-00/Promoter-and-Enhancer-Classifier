@@ -351,10 +351,10 @@ To test Transformer model on inference mode, visit the `Inference Folder`. Insid
 
 3. pass the introns sequence to the model 
     ```sh
-    python inference.py -data=<path to the introns csv> -weights=<path to the checkpoints> 
+    python transformer_inference.py -data=<path to the introns csv> -weights=<path to the checkpoints> 
 
     example:
-    python inference.py -data=".../introns.csv" -weights=".../epoch=3-step=1736.ckpt"" 
+    python transformer_inference..py -data=".../introns.csv" -weights=".../epoch=3-step=1736.ckpt"" 
    ```
 
 
