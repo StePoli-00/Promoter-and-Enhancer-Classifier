@@ -288,6 +288,7 @@ insert Deep, for InstaDeep
 inser DnaBert, for DnaBert2
 ```
 this commmand will process the data in the csv using the selected tokenizer and will save for each sequence three informations token id, attention mask and label.
+If you want to try this, you can use the file data_different_size.csv present in the folder data of the repo.
 6. run split_dataset.py, to create Training, Testing and Validation set.
 ```sh
 python split_dataset.py -train=<path to the Training folder> -test=<path to the Testing folder> -validation=<path to the Validation folder>
