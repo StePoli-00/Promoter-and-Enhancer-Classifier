@@ -74,13 +74,13 @@ if __name__=="__main__":
     val_data_object = MyDataSet(DataValpath)
 
 
-    src_vocab_size = 35000
+    src_vocab_size = 32500   #change this parameter considering the type of tokenizer that you are using
     tgt_vocab_size = 1
-    d_model = 512
+    d_model = 512            #The dimensionality of the model's embeddings
     num_heads = 8
-    num_layers = 6
-    d_ff = 2048
-    max_seq_length = 500
+    num_layers = 6           #num of encoder layer
+    d_ff = 2048              #dimensionality of the inner layer in the feed-forward network.
+    max_seq_length = 512     #Maximum sequence length for positional encoding.
     dropout = 0.1
 
 
